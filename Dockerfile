@@ -80,13 +80,18 @@ RUN set -eux; \
 RUN set -eux; \
     date > /tmp/cache-bust && \
     npx playwright install --with-deps && \
-    # Clean up in same layer to reduce size
+    # Clean up in same layer to reduce size (including Playwright cache!)
     rm -f /tmp/cache-bust && \
     rm -rf /tmp/* \
            /var/tmp/* \
            /var/lib/apt/lists/* \
            ~/.npm \
+           /root/.cache \
            /usr/share/doc/* \
-           /usr/share/man/*
+           /usr/share/man/* \
+           /usr/share/locale/* \
+           /usr/share/pixmaps/* \
+           /usr/share/icons/hicolor/*/apps/* \
+           /var/cache/debconf/*
 
 WORKDIR /var/www/html
